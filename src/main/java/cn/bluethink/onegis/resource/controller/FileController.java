@@ -51,6 +51,7 @@ public class FileController {
 		}else if((CATEGORY_PLUGIN).equals(category)){
 			fileName = FileUtil.uploadFile(file, FileType.COMPRESSED_FILE, pluginPath);
 			System.out.println("保存成功");
+			System.out.println("哈哈哈，保存成功");
 		}else{
 			fileName = FileUtil.uploadFile(file, FileType.COMPRESSED_FILE, pluginPath);
 			System.out.println("保存成功");
