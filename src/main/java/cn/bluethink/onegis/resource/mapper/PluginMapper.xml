@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bluethink.onegis.resource.mapper.PluginMapper">
+	<resultMap type="cn.bluethink.onegis.resource.model.Plugin" id="pluginMap">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId"/>
+		<result column="name" property="name"/>
+		<result column="icon" property="icon"/>
+		<result column="version" property="version"/>
+		<result column="tags" property="tags"/>
+		<result column="description" property="description"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="del_flag" property="delFlag"/>
+		<association property="user" column="user_id" 
+		select="cn.bluethink.onegis.resource.mapper.UserMapper.getById"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="cn.bluethink.onegis.resource.model.Plugin"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_plugin (
+			user_id,
+			name,
+			icon,
+			version,
+			tags,
+			description,
+			create_time
+		) values (
+			#{userId},
+			#{name},
+			#{icon},
+			#{version},
+			#{tags},
+			#{description},
+			NOW()
+		)
+	</insert>
+	
+	<update id="update" parameterType="cn.bluethink.onegis.resource.model.Plugin">
+		update t_plugin
+		<set>
+			<if test="userId != null and userId > 0">
+				user_id = #{userId},
+			</if>
+			<if test="name != null and name != ''">
+				name = #{name},
+			</if>
+			<if test="icon != null and icon != ''">
+				icon = #{icon},
+			</if>
+			<if test="version != null and version != ''">
+				version = #{version},
+			</if>
+			<if test="tags != null and tags != ''">
+				tags = #{tags},
+			</if>
+			<if test="description != null and description != ''">
+				description = #{description},
+			</if>
+			update_time = NOW()
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		update t_plugin set del_flag = 1 where id = #{id}
+	</delete>
+	
+	<select id="getById" resultMap="pluginMap">
+		select * from t_plugin where id = #{id}
+	</select>
+	
+	<select id="getByUserId" resultType="cn.bluethink.onegis.resource.model.Plugin">
+		select 
+			id, 
+			user_id userId,
+			name,
+			icon,
+			version,
+			tags,
+			description,
+			create_time createTime,
+			update_time updateTime,
+			del_flag delFlag
+		from t_plugin
+		where user_id = #{id}
+	</select>
+	
+	<select id="getPluginList" resultMap="pluginMap">
+		select * from t_plugin
+		<where>
+			del_flag = 0 
+			<if test="name != null and name != ''">
+				and name like concat('%', #{name}, '%') 
+			</if>
+			<if test="tags != null and tags != ''">
+				and tags like concat('%', #{tags}, '%')
+			</if>
+		</where>
+	</select>
+</mapper>
