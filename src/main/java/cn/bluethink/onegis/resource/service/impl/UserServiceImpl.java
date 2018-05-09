@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean save(User user) throws Exception {
 		int flag = 0;
+		System.out.println(user);
 		if(user != null) {
 			if(user.getId() > 0){
 				flag = userMapper.update(user);

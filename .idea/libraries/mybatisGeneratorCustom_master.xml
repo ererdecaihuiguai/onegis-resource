@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="mybatisGeneratorCustom-master">
+    <CLASSES>
+      <root url="jar://D:/mirror_huang note/mybatisGeneratorCustom-master/mybatis-generator-core-1.3.2-sources.jar!/" />
+      <root url="jar://D:/mirror_huang note/mybatisGeneratorCustom-master/mybatis-generator-core-1.3.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

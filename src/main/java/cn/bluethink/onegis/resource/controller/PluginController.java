@@ -59,7 +59,7 @@ public class PluginController {
     @ApiImplicitParam(name = "id", value = "资源Id", dataType = "long", paramType = "query")
 	@GetMapping("/getById")
 	public BtResult getById(long id) throws Exception {
-    	Plugin plugin = pluginService.getById(id);
+        Plugin plugin = pluginService.getById(id);
     	return BtResult.OK(plugin);
 	}
 
